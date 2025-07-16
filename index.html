@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fatma Nur Sakal - Portfolyo</title>
+    <meta name="description" content="Fatma Nur Sakal'ın kişisel portfolyo sitesi. Frontend geliştirici ve UI/UX tutkunu. Projeler, hizmetler ve iletişim için göz atın.">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+            --text-color-light: #333;
+            --text-color-dark: #f8f9fa;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #343a40;
+            --purple-color: #6f42c1; /* Added for Bootstrap purple */
+        }
+
+        /* Light theme (default) */
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color-light);
+        }
+        .navbar {
+            background-color: var(--dark-bg) !important;
+        }
+        .card {
+            background-color: var(--card-bg-light);
+            color: var(--text-color-light);
+        }
+        .bg-light {
+            background-color: var(--light-bg) !important;
+        }
+        .bg-dark {
+            background-color: var(--dark-bg) !important;
+        }
+        .text-dark {
+            color: var(--text-color-light) !important; /* Corrected for light mode */
+        }
+
+        /* Dark theme */
+        body.dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--text-color-dark);
+        }
+        body.dark-mode .navbar {
+            background-color: var(--card-bg-dark) !important;
+        }
+        body.dark-mode .card {
+            background-color: var(--card-bg-dark);
+            color: var(--text-color-dark);
+            box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+        }
+        body.dark-mode .bg-light {
+            background-color: #2c3034 !important; /* A slightly lighter dark background for contrast */
+        }
+        body.dark-mode .text-dark {
+            color: var(--text-color-dark) !important;
+        }
+        body.dark-mode .modal-content {
+            background-color: var(--card-bg-dark);
+            color: var(--text-color-dark);
+        }
+        body.dark-mode .modal-header,
+        body.dark-mode .modal-footer {
+            border-color: #495057;
+        }
+
+        .hero {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+        }
+
+        .skill-box {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .skill-box:hover {
+            transform: scale(1.05);
+        }
+        .card {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .tooltip-inner {
+            background-color: #333;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+        .text-purple {
+            color: var(--purple-color); /* Used the defined custom property */
+        }
+        .hero .btn-primary:hover {
+            background-color: #0b5ed7;
+            box-shadow: 0 4px 10px rgba(11, 94, 215, 0.5);
+        }
+
+        .navbar-nav .nav-link.active {
+            color: var(--primary-color) !important;
+            font-weight: bold;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 3px;
+        }
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+
+        .navbar-toggler-wrapper {
+            display: flex;
+            align-items: center;
+            margin-left: auto;  
+        }
+
+        /* Carousel image styling */
+        .carousel-item img {
+            width: 100%;
+            height: 400px; /* Fixed height for consistency */
+            object-fit: cover; /* Ensures images cover the area without distortion */
+        }
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.75) !important; /* Ensure consistent dark background for caption */
+        }
+
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                order: 2;
+                width: 100%;
+                margin-top: 10px;
+            }
+            .navbar-nav {
+                text-align: center;
+            }
+            .navbar-nav .nav-item {
+                width: 100%;
+            }
+            .navbar-toggler-wrapper {
+                margin-left: auto; 
+                order: 1;
+                flex-grow: 1; 
+                justify-content: flex-end; 
+            }
+            .navbar-toggler {
+                margin-left: 1rem; 
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                background-position: top center;
+                padding-top: 60px;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .hero img {
+                width: 120px;
+            }
+            .carousel-item img {
+                height: 300px; /* Adjust height for smaller screens */
+            }
+        }
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .hero img {
+                width: 100px;
+            }
+            .skill-box, .card {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 90%;
+            }
+            .carousel-item img {
+                height: 200px; /* Further adjust height for extra small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Fatma Nur Sakal</a>
+            <div class="navbar-toggler-wrapper">
+                <button class="btn btn-link nav-link" id="themeToggle" title="Temayı Değiştir">
+                    <i class="bi bi-moon-fill" id="themeIcon"></i>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">Hakkımda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Yetenekler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Hizmetler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projeler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#carousel">Referanslar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">İletişim</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero d-flex align-items-center justify-content-center flex-column text-center">
+        <img src="https://plus.unsplash.com/premium_photo-1669069604795-80429d880371?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Fatma Nur Sakal'ın Profil Fotoğrafı" class="rounded-circle mb-3 border border-5 border-white shadow-lg" width="150" height="150">
+        <h1 class="display-4" data-aos="fade-up" data-aos-delay="200">Merhaba, ben Fatma Nur 👋</h1>
+        <p class="lead" data-aos="fade-up" data-aos-delay="400">Frontend Geliştirici & UI/UX Tutkunu ✨</p>
+        <a href="#contact" class="btn btn-lg btn-primary mt-3 animate__animated animate__pulse animate__infinite" data-aos="fade-up" data-aos-delay="600">Benimle İletişime Geç <i class="bi bi-arrow-right"></i></a>
+    </header>
+
+    <section id="about" class="py-5">
+        <div class="container text-center" data-aos="fade-up">
+            <h2 class="mb-4 display-5">Hakkımda 🙋‍♀️</h2>
+            <p class="lead">Kod yazmayı, güzel ve sade tasarımlar oluşturmayı seviyorum. **HTML, CSS, JavaScript ve Bootstrap** ile kullanıcı dostu web arayüzleri geliştiriyorum. Projelerimde **erişilebilirlik** ve **kullanıcı deneyimi** her zaman önceliğimdir.</p>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <a href="https://github.com/your-github-profile" target="_blank" class="btn btn-outline-dark btn-lg" data-bs-toggle="tooltip" title="GitHub Profilim"><i class="bi bi-github"></i> GitHub</a>
+                <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" class="btn btn-outline-primary btn-lg" data-bs-toggle="tooltip" title="LinkedIn Profilim"><i class="bi bi-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <section id="skills" class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="mb-4 display-5" data-aos="fade-up">Yetenekler 🚀</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-3 col-sm-6 mb-3" data-aos="fade-right" data-aos-delay="100">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <i class="bi bi-filetype-html display-4 text-danger mb-3"></i>
+                        <h5 class="card-title fw-bold">HTML5</h5>
+                        <p class="card-text text-muted">Semantik ve erişilebilir HTML yapıları kullanıyorum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3" data-aos="fade-right" data-aos-delay="200">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <i class="bi bi-filetype-css display-4 text-primary mb-3"></i>
+                        <h5 class="card-title fw-bold">CSS3</h5>
+                        <p class="card-text text-muted">Modern tasarımlar için Flexbox, Grid ve animasyonları kullanıyorum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3" data-aos="fade-left" data-aos-delay="300">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <i class="bi bi-bootstrap-fill display-4 text-purple mb-3"></i>
+                        <h5 class="card-title fw-bold">Bootstrap</h5>
+                        <p class="card-text text-muted">Hızlı ve responsive tasarımlar için Bootstrap 5 kullanıyorum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 mb-3" data-aos="fade-left" data-aos-delay="400">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <i class="bi bi-filetype-js display-4 text-warning mb-3"></i>
+                        <h5 class="card-title fw-bold">JavaScript</h5>
+                        <p class="card-text text-muted">Etkileşimli ve dinamik arayüzler için JavaScript kullanıyorum.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    ---
+
+    <section id="services" class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-4 display-5" data-aos="fade-up">Hizmetler 🛠️</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 col-sm-6 mb-3" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-code-slash display-4 text-primary mb-3"></i>
+                            <h5 class="card-title fw-bold">Web Geliştirme</h5>
+                            <p class="card-text text-muted">Modern, responsive web siteleri oluşturuyorum. Temiz ve optimize edilmiş kod yazmaya özen gösteriyorum.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-3" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-brush display-4 text-success mb-3"></i>
+                            <h5 class="card-title fw-bold">Tasarım (UI/UX)</h5>
+                            <p class="card-text text-muted">Kullanıcı dostu arayüzler ve estetik tasarımlar hazırlıyorum. Kullanıcı deneyimini ön planda tutuyorum.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-3" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-phone display-4 text-warning mb-3"></i>
+                            <h5 class="card-title fw-bold">Mobil Uyum</h5>
+                            <p class="card-text text-muted">Her cihazda sorunsuz çalışan mobil uyumlu siteler geliştiriyorum. Farklı ekran boyutlarına göre optimize ederim.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <section id="projects" class="py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="mb-4 display-5" data-aos="fade-up">Projeler 📂</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://plus.unsplash.com/premium_photo-1669077046693-12d3fbae4ece?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Responsive Blog Projesi Görseli" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Responsive Blog</h5>
+                            <p class="card-text text-muted">Bootstrap ile geliştirilen mobil uyumlu blog sitesi. Okunabilirlik ve erişilebilirlik odaklı.</p>
+                            <div class="mt-auto">
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal1">
+                                    Detaylar <i class="bi bi-info-circle"></i>
+                                </button>
+                                <a href="#" class="btn btn-outline-secondary btn-sm ms-2" target="_blank" title="GitHub Deposu"><i class="bi bi-github"></i> Kod</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://plus.unsplash.com/premium_photo-1669077046693-12d3fbae4ece?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="E-Ticaret Sitesi Arayüzü Görseli" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">E-Ticaret Arayüzü</h5>
+                            <p class="card-text text-muted">Ürün listeleme, sepete ekleme ve ödeme adımları içeren modern e-ticaret arayüzü.</p>
+                            <div class="mt-auto">
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal2">
+                                    Detaylar <i class="bi bi-info-circle"></i>
+                                </button>
+                                <a href="#" class="btn btn-outline-secondary btn-sm ms-2" target="_blank" title="GitHub Deposu"><i class="bi bi-github"></i> Kod</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 shadow-sm">
+                        <img src="https://plus.unsplash.com/premium_photo-1669077046693-12d3fbae4ece?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Portfolyo Sitesi V2 Görseli" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Portfolyo Sitesi V2</h5>
+                            <p class="card-text text-muted">Tamamen sıfırdan tasarlanmış ve kodlanmış kişisel portfolyo sitesi örneği.</p>
+                            <div class="mt-auto">
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#projectModal3">
+                                    Detaylar <i class="bi bi-info-circle"></i>
+                                </button>
+                                <a href="#" class="btn btn-outline-secondary btn-sm ms-2" target="_blank" title="GitHub Deposu"><i class="bi bi-github"></i> Kod</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="projectModal1" tabindex="-1" aria-labelledby="projectModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="projectModalLabel1">Responsive Blog Detayları</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bu proje, **HTML5, CSS3 ve Bootstrap 5** kullanılarak geliştirilmiş, tamamen responsive bir blog arayüzüdür. Amacı, farklı cihazlarda sorunsuz bir okuma deneyimi sunmaktır. İçerik odaklı tasarımı ve basit navigasyonu ile kullanıcı dostu bir yapıya sahiptir.</p>
+                        <h6>Kullanılan Teknolojiler:</h6>
+                        <span class="badge bg-primary me-1 mb-1">HTML5</span>
+                        <span class="badge bg-info text-dark me-1 mb-1">CSS3</span>
+                        <span class="badge bg-purple me-1 mb-1">Bootstrap 5</span>
+                        <span class="badge bg-warning text-dark me-1 mb-1">JavaScript</span>
+                        <hr>
+                        <p class="text-muted fst-italic">Proje hakkında daha fazla bilgi ve canlı demo linki yakında eklenecektir. ✨</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="projectModal2" tabindex="-1" aria-labelledby="projectModalLabel2" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="projectModalLabel2">E-Ticaret Arayüzü Detayları</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bu proje, modern bir e-ticaret sitesi için tasarlanmış ön yüz arayüzüdür. Ürün listeleme, detay sayfaları, sepet yönetimi ve temel ödeme adımları görsel olarak canlandırılmıştır. Kullanıcı deneyimini artırıcı animasyonlar ve geçişler içermektedir.</p>
+                        <h6>Kullanılan Teknolojiler:</h6>
+                        <span class="badge bg-primary me-1 mb-1">HTML5</span>
+                        <span class="badge bg-info text-dark me-1 mb-1">CSS3</span>
+                        <span class="badge bg-purple me-1 mb-1">Bootstrap 5</span>
+                        <span class="badge bg-warning text-dark me-1 mb-1">JavaScript</span>
+                        <hr>
+                        <p class="text-muted fst-italic">Bu proje için canlı demo ve GitHub deposu yakında eklenecektir. 🛍️</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="projectModal3" tabindex="-1" aria-labelledby="projectModalLabel3" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="projectModalLabel3">Portfolyo Sitesi V2 Detayları</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Bu, kendi kişisel portfolyo sitemin ikinci versiyonudur. Önceki deneyimlerimden yola çıkarak daha modern bir tasarım, daha iyi performans ve daha zengin bir kullanıcı deneyimi sunmak amacıyla geliştirilmiştir. Responsive tasarım ve SEO dostu yapıya sahiptir.</p>
+                        <h6>Kullanılan Teknolojiler:</h6>
+                        <span class="badge bg-primary me-1 mb-1">HTML5</span>
+                        <span class="badge bg-info text-dark me-1 mb-1">CSS3</span>
+                        <span class="badge bg-purple me-1 mb-1">Bootstrap 5</span>
+                        <span class="badge bg-warning text-dark me-1 mb-1">JavaScript</span>
+                        <hr>
+                        <p class="text-muted fst-italic">Bu projenin kaynak kodlarına ve canlı yayındaki haline GitHub profilimden ulaşabilirsiniz. 💻</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <section id="carousel" class="py-5">
+        <div class="container" data-aos="fade-up">
+            <h2 class="text-center mb-4 display-5">Referanslar / İlhamlar 🌟</h2>
+            <div id="imageCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-inner rounded shadow-lg">
+                    <div class="carousel-item active">
+                        <img src="https://plus.unsplash.com/premium_photo-1669077046693-12d3fbae4ece?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="Teknoloji ve İnovasyon">
+                        <div class="carousel-caption d-none d-md-block bg-opacity-75 rounded p-2">
+                            <h5>Teknoloji ve İnovasyon</h5>
+                            <p>Sürekli öğrenmeye ve yeni teknolojileri keşfetmeye olan tutkum.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://plus.unsplash.com/premium_photo-1669077046693-12d3fbae4ece?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="Web Geliştirme Yaklaşımı">
+                        <div class="carousel-caption d-none d-md-block bg-opacity-75 rounded p-2">
+                            <h5>Web Geliştirme Yaklaşımım</h5>
+                            <p>Temiz kod, kullanıcı odaklı tasarım ve performans optimizasyonu.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://plus.unsplash.com/premium_photo-1669077046693-12d3fbae4ece?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="İlham Veren Çalışma Ortamı">
+                        <div class="carousel-caption d-none d-md-block bg-opacity-75 rounded p-2">
+                            <h5>İlham Veren Çalışma Ortamı</h5>
+                            <p>Yaratıcılığımı besleyen ve odaklanmamı sağlayan düzenli bir çalışma alanı.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <section id="contact" class="bg-dark text-white py-5">
+        <div class="container text-center" data-aos="fade-up">
+            <h2 class="mb-4 display-5">İletişim ✉️</h2>
+            <p class="lead mb-4">Benimle iletişime geçmek için aşağıdaki formu doldurabilirsiniz. En kısa sürede geri dönüş yapacağım!</p>
+            <form id="contactForm" class="row justify-content-center" action="https://formspree.io/f/your-form-id" method="POST">
+                <div class="col-md-6 mb-3">
+                    <input type="text" name="name" class="form-control form-control-lg" placeholder="Ad Soyad" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <input type="email" name="_replyto" class="form-control form-control-lg" placeholder="E-posta" required>
+                </div>
+                <div class="col-12 mb-3">
+                    <textarea name="message" class="form-control form-control-lg" rows="5" placeholder="Mesajınız" required></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-outline-light btn-lg px-5">Gönder <i class="bi bi-send-fill"></i></button>
+                </div>
+            </form>
+            <div id="formStatus" class="mt-3 text-start d-none"></div>
+        </div>
+    </section>
+
+    ---
+
+    <footer class="text-center bg-black text-white py-3">
+        <div class="container">
+            <div class="d-flex justify-content-center mb-2">
+                <a href="https://github.com/your-github-profile" target="_blank" class="text-white mx-3 fs-4" data-bs-toggle="tooltip" title="GitHub Profilim"><i class="bi bi-github"></i></a>
+                <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank" class="text-white mx-3 fs-4" data-bs-toggle="tooltip" title="LinkedIn Profilim"><i class="bi bi-linkedin"></i></a>
+                <a href="mailto:your-email@example.com" class="text-white mx-3 fs-4" data-bs-toggle="tooltip" title="Bana E-posta Gönder"><i class="bi bi-envelope"></i></a>
+            </div>
+            <p class="mb-0">© <span id="year"></span> Fatma Nur Sakal. Tüm hakları saklıdır. ✨</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // AOS (Animate On Scroll) başlatma
+        AOS.init({
+            duration: 800,
+            once: true,
+            mirror: false 
+        });
+
+        // Dinamik yıl
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        // Tooltip etkinleştirme (sayfa genelindeki tooltips)
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el));
+
+        // Modal içindeki tooltip'leri etkinleştirme
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            modal.addEventListener('shown.bs.modal', () => {
+                const modalTooltipTriggerList = modal.querySelectorAll('[data-bs-toggle="tooltip"]');
+                modalTooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+            });
+        });
+
+        // Tema Değiştirme (Dark/Light Mode)
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        // Local Storage'dan tema tercihini yükle
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.classList.remove('bi-moon-fill');
+            themeIcon.classList.add('bi-sun-fill');
+        } else {
+            body.classList.remove('dark-mode');
+            themeIcon.classList.remove('bi-sun-fill');
+            themeIcon.classList.add('bi-moon-fill');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.remove('bi-moon-fill');
+                themeIcon.classList.add('bi-sun-fill');
+            } else {
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.remove('bi-sun-fill');
+                themeIcon.classList.add('bi-moon-fill');
+            }
+        });
+
+        // İletişim formu gönderimi (Formspree entegrasyonu)
+        document.getElementById("contactForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const formStatus = document.getElementById("formStatus");
+            formStatus.classList.remove('d-none', 'alert-success', 'alert-danger');
+            formStatus.textContent = "Mesajınız gönderiliyor...";
+            formStatus.classList.add('alert', 'alert-info');
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    formStatus.textContent = "Mesajınız başarıyla gönderildi. Teşekkürler! 🎉";
+                    formStatus.classList.remove('alert-info');
+                    formStatus.classList.add('alert-success');
+                    form.reset();
+                } else {
+                    const data = await response.json();
+                    let errorMessage = "Mesaj gönderilirken bilinmeyen bir hata oluştu.";
+                    if (data.errors) {
+                        errorMessage = "Mesaj gönderilirken bir hata oluştu: " + data.errors.map(err => err.message).join(", ");
+                    }
+                    formStatus.textContent = errorMessage;
+                    formStatus.classList.remove('alert-info');
+                    formStatus.classList.add('alert-danger');
+                }
+            } catch (error) {
+                console.error('Form gönderme hatası:', error);
+                formStatus.textContent = "Mesaj gönderilirken bir ağ hatası oluştu. Lütfen daha sonra tekrar deneyin. 😞";
+                formStatus.classList.remove('alert-info');
+                formStatus.classList.add('alert-danger');
+            } finally {
+                formStatus.classList.remove('d-none');
+            }
+        });
+
+        // Navbar Aktif Link Vurgusu ve Scrollspy
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+        const setActiveNavLink = () => {
+            let current = '';
+            // Get the current scroll position, factoring in the navbar height
+            const scrollY = window.pageYOffset + document.querySelector('.navbar').offsetHeight + 10; // Added 10px buffer
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop && scrollY < (sectionTop + sectionHeight)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', setActiveNavLink);
+        window.addEventListener('load', setActiveNavLink); // Initial check on load
+
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                
+                // Calculate scroll position, adjusting for fixed navbar
+                const offsetPosition = targetElement.offsetTop - navbarHeight;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+
+                // Close navbar on mobile after click
+                const navbarCollapse = document.getElementById('navMenu');
+                if (navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse, {toggle: false});
+                    bsCollapse.hide();
+                }
+            });
+        });
+
+        // Background Slider for Hero Section
+        const hero = document.querySelector('.hero');
+        const heroImages = [
+            'https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=1470&q=80',
+            'https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1470&q=80',
+            'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1470&q=80'
+        ];
+        let imageIndex = 0;
+
+        // Function to set hero background
+        const setHeroBackground = () => {
+            hero.style.backgroundImage = `url('${heroImages[imageIndex]}')`;
+        }
+
+        // Set initial background image
+        setHeroBackground();
+
+        // Change image every 5 seconds
+        setInterval(() => {
+            imageIndex = (imageIndex + 1) % heroImages.length;
+            setHeroBackground();
+        }, 5000); 
+    </script>
+
+</body>
+</html>
