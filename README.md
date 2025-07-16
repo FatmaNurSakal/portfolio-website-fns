@@ -14,7 +14,7 @@ It showcases personal projects, skills, and includes a contact form for potentia
 
 ## 🌐 Live Demo
 
-👉 [Click here to view the live site](https://github.com/FatmaNurSakal/portfolio-website)
+👉 [Click here to view the live site](https://github.com/FatmaNurSakal/portfolio-website-fns/blob/main/index.html)
 
 ## 🛠 Technologies Used
 
